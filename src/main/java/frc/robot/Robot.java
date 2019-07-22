@@ -30,6 +30,8 @@ public class Robot extends TimedRobot {
   Joystick leftJoystick;
   Joystick rightJoystick;
 
+  Arm2 arm;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -44,6 +46,8 @@ public class Robot extends TimedRobot {
 
     leftJoystick = new Joystick(0);
     rightJoystick = new Joystick(1);
+
+    arm = new Arm2(3, 1);
   }
 
   /**
@@ -98,6 +102,17 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     driveBase.drive(leftJoystick.getY(), rightJoystick.getY());
+
+    if (leftJoystick.getRawButton(2))
+    {
+      arm.setRotator(1);
+    }
+    else
+    {
+      arm.setRotator(0);
+    }
+    
+    arm.setExtender(leftJoystick.getRawButton(2));
   }
 
   /**
