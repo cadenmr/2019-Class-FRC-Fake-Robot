@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
 
   Arm1 arm1;
   Arm3 arm3;
+  Arm2 arm2;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -48,8 +49,7 @@ public class Robot extends TimedRobot {
     leftJoystick = new Joystick(0);
     rightJoystick = new Joystick(1);
 
-    arm1 = new Arm1(2, 0);
-    arm3 = new Arm3(4, 2);
+    arm2 = new Arm2(3, 1);
   }
 
   /**
@@ -119,6 +119,16 @@ public class Robot extends TimedRobot {
     } else {
       arm3.setRotator(0);
     }
+    if (leftJoystick.getRawButton(2))
+    {
+      arm2.setRotator(1);
+    }
+    else
+    {
+      arm2.setRotator(0);
+    }
+    
+    arm2.setExtender(leftJoystick.getRawButton(2));
   }
 
   /**
