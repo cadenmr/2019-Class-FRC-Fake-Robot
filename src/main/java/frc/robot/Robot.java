@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,6 +25,16 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+
+  DriveBase driveBase;
+
+
+  Joystick leftJoystick;
+  Joystick rightJoystick;
+
+  // VictorSP leftDrive;
+  // VictorSP rightDrive;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -33,6 +44,11 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    leftJoystick = new Joystick(0);
+    rightJoystick = new Joystick(1);
+
+    driveBase = new DriveBase(0, 1);
   }
 
   /**
@@ -86,6 +102,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    // leftDrive.set(leftJoystick.getY());
+    // rightDrive.set(rightJoystick.getY());
+
+    driveBase.drive(leftJoystick.getY(), rightJoystick.getY());
+
   }
 
   /**
