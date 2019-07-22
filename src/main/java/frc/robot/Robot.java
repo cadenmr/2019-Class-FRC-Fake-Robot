@@ -28,12 +28,8 @@ public class Robot extends TimedRobot {
 
   DriveBase driveBase;
 
-
   Joystick leftJoystick;
   Joystick rightJoystick;
-
-  // VictorSP leftDrive;
-  // VictorSP rightDrive;
 
   /**
    * This function is run when the robot is first started up and should be
