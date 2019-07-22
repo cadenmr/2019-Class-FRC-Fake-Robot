@@ -30,7 +30,8 @@ public class Robot extends TimedRobot {
   Joystick leftJoystick;
   Joystick rightJoystick;
 
-  Arm arm;
+  Arm1 arm1;
+  Arm3 arm3;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -47,7 +48,8 @@ public class Robot extends TimedRobot {
     leftJoystick = new Joystick(0);
     rightJoystick = new Joystick(1);
 
-    arm = new Arm(4, 2);
+    arm1 = new Arm1(2, 0);
+    arm3 = new Arm3(4, 2);
   }
 
   /**
@@ -103,11 +105,19 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     driveBase.drive(leftJoystick.getY(), rightJoystick.getY());
 
-    arm.setExtender(rightJoystick.getRawButton(3));
-    if (leftJoystick.getRawButton(3)) {
-      arm.setRotator(1);
+    if (leftJoystick.getTrigger()) {
+      arm1.setRotator(1);
     } else {
-      arm.setRotator(0);
+      arm1.setRotator(0);
+    }
+
+    arm1.setExtender(rightJoystick.getTrigger());
+
+    arm3.setExtender(rightJoystick.getRawButton(3));
+    if (leftJoystick.getRawButton(3)) {
+      arm3.setRotator(1);
+    } else {
+      arm3.setRotator(0);
     }
   }
 
