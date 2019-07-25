@@ -7,10 +7,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.misc2019.EnhancedJoystick;
+import frc.misc2019.Gamepad;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,8 +31,9 @@ public class Robot extends TimedRobot {
 
   DriveBase driveBase;
 
-  Joystick leftJoystick;
-  Joystick rightJoystick;
+  EnhancedJoystick leftJoystick;
+  EnhancedJoystick rightJoystick;
+  Gamepad manipulator;
 
   Arm1 arm1;
   Arm2 arm2;
@@ -54,8 +56,9 @@ public class Robot extends TimedRobot {
 
     driveBase = new DriveBase(0, 1);
 
-    leftJoystick = new Joystick(0);
-    rightJoystick = new Joystick(1);
+    leftJoystick = new EnhancedJoystick(0);
+    rightJoystick = new EnhancedJoystick(1);
+    manipulator = new Gamepad(2);
 
     arm1 = new Arm1(2,0);
     arm2 = new Arm2(3, 1);
