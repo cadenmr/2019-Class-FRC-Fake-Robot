@@ -39,6 +39,7 @@ public class Robot extends TimedRobot {
 
   boolean arm1ButtonPressed = false;
   boolean arm2tog = false;
+  boolean arm4ButtonPressed = false;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -55,7 +56,10 @@ public class Robot extends TimedRobot {
     leftJoystick = new Joystick(0);
     rightJoystick = new Joystick(1);
 
+    arm1 = new Arn1(2,0);
     arm2 = new Arm2(3, 1);
+    arm3 = new Arm3(4,2);
+    arm4 = new Arm4(5,3);
   }
 
   /**
@@ -155,7 +159,21 @@ public class Robot extends TimedRobot {
     }
 
     arm2.setExtender(arm2tog);
+
+    if (leftJoystick.getTrigger()) {
+      arm4.setRotator(1);
+    } else {
+      arm1.setRotator(0);
+    }
+
+    if (rightJoystick.getTrigger() && !arm4ButtonPressed) {
+      arm4.changeExtenderState();
+    }
+    arm1ButtonPressed = rightJoystick.getTrigger();
+    arm4.setExtender(rightJoystick.getTrigger());
   }
+
+
 
   /**
    * This function is called periodically during test mode.
