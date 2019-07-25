@@ -35,6 +35,7 @@ public class Robot extends TimedRobot {
   Arm2 arm2;
 
   boolean arm1ButtonPressed = false;
+  boolean arm2tog = false;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -136,6 +137,13 @@ public class Robot extends TimedRobot {
     }
     
     arm2.setExtender(leftJoystick.getRawButton(2));
+
+    if (leftJoystick.getRawButton(2) && leftJoystick.getTrigger() != arm2tog)
+    {
+      arm2tog = !arm2tog;
+    }
+
+    arm2.setExtender(arm2tog);
   }
 
   /**
