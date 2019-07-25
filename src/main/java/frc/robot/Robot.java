@@ -59,11 +59,12 @@ public class Robot extends TimedRobot {
     leftJoystick = new EnhancedJoystick(0);
     rightJoystick = new EnhancedJoystick(1);
     manipulator = new Gamepad(2);
+    
 
     arm1 = new Arm1(2, 0, 1);
     arm2 = new Arm2(3, 1, 2);
     arm3 = new Arm3(4,2,0);
-    arm4 = new Arm4(5,3);
+    arm4 = new Arm4(5,3,3);
   }
 
   /**
@@ -168,7 +169,7 @@ public class Robot extends TimedRobot {
 
     arm2.setExtender(arm2tog);
 
-    if (leftJoystick.getTrigger()) {
+    if (leftJoystick.getTrigger() && arm4.getLimitSwitch) {
       arm4.setRotator(1);
     } else {
       arm1.setRotator(0);
