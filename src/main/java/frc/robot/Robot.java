@@ -25,6 +25,9 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  private boolean arm3ExtenderState = false;
+  private boolean arm3ButtonPressed = false;
+
   DriveBase driveBase;
 
   Joystick leftJoystick;
@@ -33,6 +36,10 @@ public class Robot extends TimedRobot {
   Arm1 arm1;
   Arm3 arm3;
   Arm2 arm2;
+
+  boolean arm1ButtonPressed = false;
+  boolean arm2tog = false;
+  boolean arm4ButtonPressed = false;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -49,7 +56,10 @@ public class Robot extends TimedRobot {
     leftJoystick = new Joystick(0);
     rightJoystick = new Joystick(1);
 
+    arm1 = new Arn1(2,0);
     arm2 = new Arm2(3, 1);
+    arm3 = new Arm3(4,2);
+    arm4 = new Arm4(5,3);
   }
 
   /**
@@ -103,6 +113,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+
     driveBase.drive(leftJoystick.getY(), rightJoystick.getY());
 
     if (leftJoystick.getTrigger()) {
@@ -111,14 +122,26 @@ public class Robot extends TimedRobot {
       arm1.setRotator(0);
     }
 
+    if (rightJoystick.getTrigger() && !arm1ButtonPressed) {
+      arm1.changeExtenderState();
+    }
+    arm1ButtonPressed = rightJoystick.getTrigger();
     arm1.setExtender(rightJoystick.getTrigger());
 
-    arm3.setExtender(rightJoystick.getRawButton(3));
-    if (leftJoystick.getRawButton(3)) {
+    if (rightJoystick.getRawButton(3) && !arm3ButtonPressed) {
+      arm3ExtenderState = !arm3ExtenderState;
+    }
+
+    arm3ButtonPressed = rightJoystick.getRawButton(3);
+
+    arm3.setExtender(arm3ExtenderState);
+
+    if (leftJoystick.getRawButton(3)){
       arm3.setRotator(1);
     } else {
       arm3.setRotator(0);
     }
+
     if (leftJoystick.getRawButton(2))
     {
       arm2.setRotator(1);
@@ -129,7 +152,28 @@ public class Robot extends TimedRobot {
     }
     
     arm2.setExtender(leftJoystick.getRawButton(2));
+
+    if (leftJoystick.getRawButton(2) && leftJoystick.getTrigger() != arm2tog)
+    {
+      arm2tog = !arm2tog;
+    }
+
+    arm2.setExtender(arm2tog);
+
+    if (leftJoystick.getTrigger()) {
+      arm4.setRotator(1);
+    } else {
+      arm1.setRotator(0);
+    }
+
+    if (rightJoystick.getTrigger() && !arm4ButtonPressed) {
+      arm4.changeExtenderState();
+    }
+    arm1ButtonPressed = rightJoystick.getTrigger();
+    arm4.setExtender(rightJoystick.getTrigger());
   }
+
+
 
   /**
    * This function is called periodically during test mode.

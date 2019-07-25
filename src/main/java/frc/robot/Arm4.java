@@ -3,12 +3,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 
-public class Arm1 {
+public class Arm4 {
     private final VictorSP rotator;
     private final Solenoid extender;
     private boolean extenderState;
 
-    public Arm1(int rotatorPort, int extenderPort) {
+    public Arm4(int rotatorPort, int extenderPort) {
         rotator = new VictorSP(rotatorPort);
         extender = new Solenoid(extenderPort);
         extenderState = false;
