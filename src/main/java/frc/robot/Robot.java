@@ -25,6 +25,9 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  private boolean arm3ExtenderState = false;
+  private boolean arm3ButtonPressed = false;
+
   DriveBase driveBase;
 
   Joystick leftJoystick;
@@ -121,12 +124,20 @@ public class Robot extends TimedRobot {
     arm1ButtonPressed = rightJoystick.getTrigger();
     arm1.setExtender(rightJoystick.getTrigger());
 
-    arm3.setExtender(rightJoystick.getRawButton(3));
-    if (leftJoystick.getRawButton(3)) {
+    if (rightJoystick.getRawButton(3) && !arm3ButtonPressed) {
+      arm3ExtenderState = !arm3ExtenderState;
+    }
+
+    arm3ButtonPressed = rightJoystick.getRawButton(3);
+
+    arm3.setExtender(arm3ExtenderState);
+
+    if (leftJoystick.getRawButton(3)){
       arm3.setRotator(1);
     } else {
       arm3.setRotator(0);
     }
+
     if (leftJoystick.getRawButton(2))
     {
       arm2.setRotator(1);
