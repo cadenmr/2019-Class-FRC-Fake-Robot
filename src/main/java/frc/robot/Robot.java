@@ -34,8 +34,9 @@ public class Robot extends TimedRobot {
   Joystick rightJoystick;
 
   Arm1 arm1;
-  Arm3 arm3;
   Arm2 arm2;
+  Arm3 arm3;
+  Arm4 arm4;
 
   boolean arm1ButtonPressed = false;
   boolean arm2tog = false;
@@ -56,7 +57,7 @@ public class Robot extends TimedRobot {
     leftJoystick = new Joystick(0);
     rightJoystick = new Joystick(1);
 
-    arm1 = new Arn1(2,0);
+    arm1 = new Arm1(2,0);
     arm2 = new Arm2(3, 1);
     arm3 = new Arm3(4,2);
     arm4 = new Arm4(5,3);
