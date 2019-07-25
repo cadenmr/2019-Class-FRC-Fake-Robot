@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
     rightJoystick = new EnhancedJoystick(1);
     manipulator = new Gamepad(2);
 
-    arm1 = new Arm1(2,0);
+    arm1 = new Arm1(2, 0, 1);
     arm2 = new Arm2(3, 1);
     arm3 = new Arm3(4,2);
     arm4 = new Arm4(5,3);
@@ -120,7 +120,7 @@ public class Robot extends TimedRobot {
 
     driveBase.drive(leftJoystick.getY(), rightJoystick.getY());
 
-    if (leftJoystick.getTrigger()) {
+    if (leftJoystick.getTrigger() && !arm1.getLimitSwitch()) {
       arm1.setRotator(1);
     } else {
       arm1.setRotator(0);
