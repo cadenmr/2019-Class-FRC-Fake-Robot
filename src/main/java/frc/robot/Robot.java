@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.autonomous.Mission;
 import frc.autonomous.commands.CommandFactory;
+import frc.autonomous2019.commands.CommandFactory2019;
 import frc.misc2019.EnhancedJoystick;
 import frc.misc2019.Gamepad;
 
@@ -46,6 +47,8 @@ public class Robot extends TimedRobot {
   boolean arm2tog = false;
   boolean arm4ButtonPressed = false;
 
+  CommandFactory2019 commandFactory;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -66,6 +69,8 @@ public class Robot extends TimedRobot {
     arm2 = new Arm2(3, 1, 2);
     arm3 = new Arm3(4, 2, 0);
     arm4 = new Arm4(5, 3, 3);
+
+    commandFactory = new CommandFactory2019(driveBase);
   }
 
   /**
@@ -100,7 +105,7 @@ public class Robot extends TimedRobot {
     // System.out.println("Auto selected: " + m_autoSelected);
 
     Mission doNothingMission = new Mission("Do Nothing");
-    Mission driveForwardMission = new Mission("Drive Forward", CommandFactory)
+    Mission driveForwardMission = new Mission("Drive Forward", CommandFactory2019.move)
   }
 
   /**
