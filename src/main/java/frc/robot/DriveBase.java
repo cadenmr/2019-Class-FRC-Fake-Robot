@@ -1,14 +1,19 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class DriveBase {
     private final VictorSP leftDrive;
     private final VictorSP rightDrive;
 
-    public DriveBase(int leftDrivePort, int rightDrivePort) {
+    private final Encoder encoder;
+
+    public DriveBase(int leftDrivePort, int rightDrivePort, int encoderPortA, int encoderPortB) {
         leftDrive = new VictorSP(leftDrivePort);
         rightDrive = new VictorSP(rightDrivePort);
+
+        encoder = new Encoder(encoderPortA, encoderPortB);
     }
 
     public void drive(double leftPower, double rightPower) {
@@ -18,5 +23,17 @@ public class DriveBase {
 
     public void drive(double power) {
         drive(power, power);
+    }
+
+    public double getDistance() {
+        return encoder.getDistance();
+    }
+
+    public double getSpeed() {
+        return encoder.getRate();
+    }
+
+    public void resetEncoder() {
+        encoder.reset();
     }
 }
