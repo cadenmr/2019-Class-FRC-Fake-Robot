@@ -14,6 +14,8 @@ public class DriveBase {
         rightDrive = new VictorSP(rightDrivePort);
 
         encoder = new Encoder(encoderPortA, encoderPortB);
+
+        encoder.setDistancePerPulse((4 * Math.PI) / 1024);
     }
 
     public void drive(double leftPower, double rightPower) {
