@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.autonomous.Mission;
+import frc.autonomous.commands.CommandFactory;
 import frc.misc2019.EnhancedJoystick;
 import frc.misc2019.Gamepad;
 
@@ -93,9 +95,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    // m_autoSelected = m_chooser.getSelected();
+    // // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
+    // System.out.println("Auto selected: " + m_autoSelected);
+
+    Mission doNothingMission = new Mission("Do Nothing");
+    Mission driveForwardMission = new Mission("Drive Forward", CommandFactory)
   }
 
   /**
