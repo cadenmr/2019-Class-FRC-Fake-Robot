@@ -54,7 +54,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    driveBase = new DriveBase(0, 1);
+    driveBase = new DriveBase(0, 1, 4, 5);
 
     leftJoystick = new EnhancedJoystick(0);
     rightJoystick = new EnhancedJoystick(1);
