@@ -25,7 +25,6 @@ import frc.misc2019.Gamepad;
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   private boolean arm3ExtenderState = false;
@@ -112,10 +111,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    // m_autoSelected = m_chooser.getSelected();
-    // // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    // System.out.println("Auto selected: " + m_autoSelected);
-
     doNothingMission = new Mission("Do Nothing");
     driveForwardMission = new Mission("Drive Forward", commandFactory.moveStraight(2, 0.1, true));
     mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.1, true), commandFactory.delay(1), commandFactory.moveStraight(2, 0.1, true));
@@ -132,17 +127,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    // switch (m_autoSelected) {
-    // case kCustomAuto:
-    //   // Put custom auto code here
-    //   break;
-    // case kDefaultAuto:
-    // default:
-    //   // Put default auto code here
-    //   break;
-    // }
-
-    if (activeMission != null) {
+  if (activeMission != null) {
       if (activeMission.run()) {
           System.out.println("Mission '" + activeMission.getName() + "' Complete");
           activeMission = null;
