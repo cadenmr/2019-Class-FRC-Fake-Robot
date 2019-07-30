@@ -80,9 +80,9 @@ public class Robot extends TimedRobot {
     commandFactory = new CommandFactory2019(driveBase);
 
     missionChooser = new SendableChooser<Mission>();
-    missionChooser.addDefault(doNothingMission.getName(), doNothingMission);
-    missionChooser.addObject(driveForwardMission.getName(), driveForwardMission);
-    missionChooser.addObject(mission3.getName(), mission3);
+    missionChooser.setDefaultOption(doNothingMission.getName(), doNothingMission);
+    missionChooser.addOption(driveForwardMission.getName(), driveForwardMission);
+    missionChooser.addOption(mission3.getName(), mission3);
   }
 
   /**
