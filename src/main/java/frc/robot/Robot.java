@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.autonomous.Mission;
-import frc.autonomous.commands.CommandFactory;
 import frc.autonomous2019.commands.CommandFactory2019;
 import frc.misc2019.EnhancedJoystick;
 import frc.misc2019.Gamepad;
@@ -49,6 +48,14 @@ public class Robot extends TimedRobot {
 
   CommandFactory2019 commandFactory;
 
+  Mission activeMission;
+  SendableChooser<Mission> missionChooser;
+
+
+  Mission doNothingMission;
+  Mission driveForwardMission;
+  Mission mission3;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -71,6 +78,11 @@ public class Robot extends TimedRobot {
     arm4 = new Arm4(5, 3, 3);
 
     commandFactory = new CommandFactory2019(driveBase);
+
+    missionChooser = new SendableChooser<Mission>();
+    missionChooser.addDefault(doNothingMission.getName(), doNothingMission);
+    missionChooser.addObject(driveForwardMission.getName(), driveForwardMission);
+    missionChooser.addObject(mission3.getName(), mission3);
   }
 
   /**
@@ -104,8 +116,15 @@ public class Robot extends TimedRobot {
     // // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     // System.out.println("Auto selected: " + m_autoSelected);
 
-    Mission doNothingMission = new Mission("Do Nothing");
-    Mission driveForwardMission = new Mission("Drive Forward", CommandFactory2019.move)
+    doNothingMission = new Mission("Do Nothing");
+    driveForwardMission = new Mission("Drive Forward", commandFactory.moveStraight(2, 0.1, true));
+    mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.1, true), commandFactory.delay(1), commandFactory.moveStraight(2, 0.1, true));
+
+    activeMission = missionChooser.getSelected();
+
+    if (activeMission != null) {
+      activeMission.reset();
+    }
   }
 
   /**
@@ -113,15 +132,22 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-    case kCustomAuto:
-      // Put custom auto code here
-      break;
-    case kDefaultAuto:
-    default:
-      // Put default auto code here
-      break;
-    }
+    // switch (m_autoSelected) {
+    // case kCustomAuto:
+    //   // Put custom auto code here
+    //   break;
+    // case kDefaultAuto:
+    // default:
+    //   // Put default auto code here
+    //   break;
+    // }
+
+    if (activeMission != null) {
+      if (activeMission.run()) {
+          System.out.println("Mission '" + activeMission.getName() + "' Complete");
+          activeMission = null;
+      }
+  }
   }
 
   /**
