@@ -13,8 +13,6 @@ public class Arm3RotateCommand implements Command {
     boolean needsToStart;
     boolean complete;
 
-    boolean stop;
-
     Arm3 arm3;
 
     double speed;
