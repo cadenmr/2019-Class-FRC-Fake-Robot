@@ -74,8 +74,8 @@ public class Robot extends TimedRobot {
     rightJoystick = new EnhancedJoystick(1);
     manipulator = new Gamepad(2);
 
-    arm1 = new Arm1(2, 0, 1);
-    arm2 = new Arm2(3, 1, 2);
+    arm1 = new Arm1(2, 5, 4);
+    arm2 = new Arm2(1, 1, 2);
     arm3 = new Arm3(3, 0, 1);
     arm4 = new Arm4(5, 3, 3);
 
@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
     doNothingMission = new Mission("Do Nothing");
     driveForwardMission = new Mission("Drive Forward", commandFactory.moveStraight(2, 0.1, true));
     mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.1, true), commandFactory.delay(1), commandFactory.moveStraight(2, 0.1, true));
-    autonomous4 = new Mission("Autonomous 4", commandFactory.moveStraight(1, 0.25, true), commandFactory.setArm3Extender(1, 0.6), commandFactory.TurnInPlace(3, 0.5, true));
+    autonomous4 = new Mission("Autonomous 4", commandFactory.moveStraight(1, 0.25, true), commandFactory.setArm3Rotator(1, 0.6), commandFactory.TurnInPlace(3, 0.5, true));
 
     missionChooser = new SendableChooser<Mission>();
     missionChooser.setDefaultOption(doNothingMission.getName(), doNothingMission);
