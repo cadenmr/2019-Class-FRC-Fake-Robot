@@ -77,6 +77,11 @@ public class Robot extends TimedRobot {
     arm4 = new Arm4(5, 3, 3);
 
     commandFactory = new CommandFactory2019(driveBase);
+    
+    doNothingMission = new Mission("Do Nothing");
+    driveForwardMission = new Mission("Drive Forward", commandFactory.moveStraight(2, 0.1, true));
+    mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.1, true), commandFactory.delay(1), commandFactory.moveStraight(2, 0.1, true));
+
 
     missionChooser = new SendableChooser<Mission>();
     missionChooser.setDefaultOption(doNothingMission.getName(), doNothingMission);
