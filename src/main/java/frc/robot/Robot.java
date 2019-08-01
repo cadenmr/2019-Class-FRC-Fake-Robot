@@ -56,6 +56,7 @@ public class Robot extends TimedRobot {
   Mission doNothingMission;
   Mission driveForwardMission;
   Mission mission3;
+  Mission autonomous4;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -75,7 +76,7 @@ public class Robot extends TimedRobot {
 
     arm1 = new Arm1(2, 0, 1);
     arm2 = new Arm2(3, 1, 2);
-    arm3 = new Arm3(4, 2, 0);
+    arm3 = new Arm3(3, 0, 1);
     arm4 = new Arm4(5, 3, 3);
 
     commandFactory = new CommandFactory2019(driveBase, arm1, arm2, arm3);
@@ -83,6 +84,7 @@ public class Robot extends TimedRobot {
     doNothingMission = new Mission("Do Nothing");
     driveForwardMission = new Mission("Drive Forward", commandFactory.moveStraight(2, 0.1, true));
     mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.1, true), commandFactory.delay(1), commandFactory.moveStraight(2, 0.1, true));
+    autonomous4 = new Mission("Autonomous 4", commandFactory.moveStraight(1, 0.25, true), commandFactory.setArm3Extender(1, 0.6), commandFactory.TurnInPlace(3, 0.5, true));
 
     missionChooser = new SendableChooser<Mission>();
     missionChooser.setDefaultOption(doNothingMission.getName(), doNothingMission);
@@ -117,11 +119,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    doNothingMission = new Mission("Do Nothing");
+/*    doNothingMission = new Mission("Do Nothing");
     driveForwardMission = new Mission("Drive Forward", commandFactory.moveStraight(2, 0.1, true));
     mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.1, true), commandFactory.delay(1), commandFactory.moveStraight(2, 0.1, true));
-
-    activeMission = missionChooser.getSelected();
+*/
+ //   activeMission = missionChooser.getSelected();
+      activeMission = autonomous4;
 
     if (activeMission != null) {
       activeMission.reset();
