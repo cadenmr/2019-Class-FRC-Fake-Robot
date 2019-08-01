@@ -2,6 +2,7 @@ package frc.autonomous2019.commands;
 
 import frc.autonomous.Command;
 import frc.autonomous.commands.CommandFactory;
+import frc.robot.Arm2;
 import frc.robot.DriveBase;
 
 public class CommandFactory2019 extends CommandFactory {
@@ -20,8 +21,8 @@ public class CommandFactory2019 extends CommandFactory {
         return new RotateArm2Command(power, time);
     }
 
-    public Command setArm2Extender(boolean out, double time)
+    public Command setArm2Extender(boolean out, Arm2 arm2)
     {
-        return new SetArm2ExtenderCommand(out, time);
+        return new SetArm2ExtenderCommand(out, arm2);
     }
 }

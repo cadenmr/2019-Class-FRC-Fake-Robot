@@ -6,55 +6,23 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class SetArm2ExtenderCommand implements Command {
 
-    Timer timer;
-
     boolean out;
-    double time;
-
-    boolean needsToStart;
-    boolean complete;
-
     Arm2 arm2;
 
-    public SetArm2ExtenderCommand(boolean out, double time) {
+    public SetArm2ExtenderCommand(boolean out, Arm2 arm2) {
         this.out = out;
-        this.time = time;
-
-        timer = new Timer();
+        this.arm2 = arm2;
 
         reset();
     }
 
     @Override
     public boolean run() {
-        if (needsToStart) {
-            timer.reset();
-            timer.start();
-            needsToStart = false;
-        }
-        
-        if (complete)
-        {
-            arm2.setExtender(!out);
-            return true;
-        }
-
-        else
-        {
-            arm2.setExtender(out);
-
-            if (timer.get() >= time)
-            {
-                complete = true;
-            }
-
-            return false;
-        }
+        arm2.setExtender(out);
+        return true;
     }
 
     @Override
     public void reset() {
-        needsToStart = true;
-        complete = false;
     }
 }
