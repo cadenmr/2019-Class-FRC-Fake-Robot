@@ -10,8 +10,9 @@ public class CommandFactory2019 extends CommandFactory {
     DriveBase driveBase;
     Arm3 arm3;
 
-    public CommandFactory2019 (DriveBase driveBase) {
+    public CommandFactory2019 (DriveBase driveBase, Arm3 arm3) {
         this.driveBase = driveBase;
+        this.arm3 = arm3;
     }
     public Command moveStraight(double time, double power, boolean stop) {
         return new MoveStraightCommand(power, time, driveBase, stop);
