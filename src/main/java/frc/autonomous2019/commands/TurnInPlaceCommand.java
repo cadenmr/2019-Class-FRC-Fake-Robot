@@ -10,15 +10,17 @@ public class TurnInPlaceCommand implements Command {
 
     double power;
     double time;
+    boolean stop;
 
     boolean needsToStart;
     boolean complete;
 
     DriveBase driveBase;
 
-    public TurnInPlaceCommand(double power, double time, DriveBase driveBase) {
+    public TurnInPlaceCommand(double power, double time, DriveBase driveBase, boolean stop) {
         this.power = power;
         this.time = time;
+        this.stop = stop;
 
         this.driveBase = driveBase;
 
@@ -36,7 +38,9 @@ public class TurnInPlaceCommand implements Command {
         }
 
         if (complete) {
-            driveBase.drive(0);
+            if (stop) {
+                driveBase.drive(0);
+            }
             return true;
         } else {
             driveBase.drive(power, -power);
