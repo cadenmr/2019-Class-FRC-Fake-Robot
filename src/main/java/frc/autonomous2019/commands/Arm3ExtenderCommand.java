@@ -4,7 +4,7 @@ import frc.autonomous.Command;
 import frc.robot.Arm3;
 import edu.wpi.first.wpilibj.Timer;
 
-public class Arm3RotateCommand implements Command {
+public class Arm3ExtenderCommand implements Command {
 
     Timer timer;
 
@@ -12,15 +12,13 @@ public class Arm3RotateCommand implements Command {
 
     boolean needsToStart;
     boolean complete;
-
     boolean stop;
+    boolean state;
 
     Arm3 arm3;
 
-    double speed;
-
-    public Arm3RotateCommand(double speed, Arm3 arm3, double time) {
-        this.speed = speed;
+    public Arm3ExtenderCommand(boolean state, Arm3 arm3, double time) {
+        this.state = state;
 
         this.arm3 = arm3;
 
@@ -39,11 +37,11 @@ public class Arm3RotateCommand implements Command {
 
         if (complete) {
             if (stop) {
-                arm3.setRotator(0);
+                arm3.setExtender(false);
             }
             return true;
         } else {
-            arm3.setRotator(speed);
+            arm3.setExtender(state);
             if (timer.get() >= time) {
                 complete = true;
             }

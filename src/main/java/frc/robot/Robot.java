@@ -83,6 +83,10 @@ public class Robot extends TimedRobot {
 
     //missionSendable = new MissionSendable(name, selectedMissionSupplier);
 
+    doNothingMission = new Mission("Do Nothing");
+    driveForwardMission = new Mission("Drive Forward", commandFactory.moveStraight(2, 0.5, true));
+    mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.5, true));
+
     missionChooser = new SendableChooser<Mission>();
     missionChooser.addDefault(doNothingMission.getName(), doNothingMission);
     missionChooser.addObject(driveForwardMission.getName(), driveForwardMission);
@@ -124,9 +128,7 @@ public class Robot extends TimedRobot {
     // // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     // System.out.println("Auto selected: " + m_autoSelected);
 
-    Mission doNothingMission = new Mission("Do Nothing");
-    Mission driveForwardMission = new Mission("Drive Forward", commandFactory.moveStraight(2, 0.5, true));
-    Mission mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.5, true));
+    
 
     activeMission = missionChooser.getSelected();
 
