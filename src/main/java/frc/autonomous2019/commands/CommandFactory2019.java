@@ -14,13 +14,14 @@ public class CommandFactory2019 extends CommandFactory {
         this.driveBase = driveBase;
         this.arm2 = arm2;
     }
+    
     public Command moveStraight(double time, double power, boolean stop) {
         return new MoveStraightCommand(power, time, driveBase, stop);
     }
 
     public Command rotateArm2(double power, double time)
     {
-        return new RotateArm2Command(power, time);
+        return new RotateArm2Command(power, time, arm2);
     }
 
     public Command setArm2Extender(boolean out)

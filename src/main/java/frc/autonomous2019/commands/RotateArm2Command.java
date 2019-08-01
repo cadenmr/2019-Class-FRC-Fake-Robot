@@ -16,9 +16,10 @@ public class RotateArm2Command implements Command {
 
     Arm2 arm2;
 
-    public RotateArm2Command(double power, double time) {
+    public RotateArm2Command(double power, double time, Arm2 arm2) {
         this.power = power;
         this.time = time;
+        this.arm2 = arm2;
 
         timer = new Timer();
 
