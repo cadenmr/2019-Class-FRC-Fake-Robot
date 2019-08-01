@@ -17,8 +17,8 @@ public class CommandFactory2019 extends CommandFactory {
         return new DriveStraightCommand(power,  time,  driveBase,  stop);
     }
 
-    public Command Arm4Rotate(double power, double time, boolean stop) {
-        return new ArmRotateCommand(power,  time, arm4, stop);
+    public Command Arm4Rotate(double power, double time) {
+        return new ArmRotateCommand(power,  time, arm4);
     }
 
     public Command Arm4Extend(boolean extend){

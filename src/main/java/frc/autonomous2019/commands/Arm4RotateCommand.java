@@ -1,6 +1,7 @@
 package frc.autonomous2019.commands;
 
 import frc.autonomous.Command;
+import frc.robot.Arm4;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -11,14 +12,12 @@ public class Arm4RotateCommand implements Command {
     Timer timer;
     double power;
     double time;
-    boolean stop;
     Arm4 arm4;
 
-    public Arm4RotateCommand(double power, double time, Arm4 arm4, boolean stop) {
+    public Arm4RotateCommand(double power, double time, Arm4 arm4) {
         this.power = power;
         this.time = time;
         this.arm4 = arm4;
-        this.stop = stop;
     }
 
     @Override
@@ -30,9 +29,7 @@ public class Arm4RotateCommand implements Command {
         }
 
         if (complete) {
-            if(stop){
                 arm4.setRotator(0);
-            }
             return true;
         } else {
             if (timer.get()<time) {
