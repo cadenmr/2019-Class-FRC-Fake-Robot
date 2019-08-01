@@ -4,6 +4,7 @@ import frc.autonomous.Command;
 import frc.autonomous.commands.CommandFactory;
 import frc.robot.Arm1;
 import frc.robot.Arm2;
+import frc.robot.Arm3;
 import frc.robot.DriveBase;
 
 public class CommandFactory2019 extends CommandFactory {
@@ -11,11 +12,13 @@ public class CommandFactory2019 extends CommandFactory {
     DriveBase driveBase;
     Arm1 arm1;
     Arm2 arm2;
+    Arm3 arm3;
 
-    public CommandFactory2019 (DriveBase driveBase, Arm1 arm1, Arm2 arm2) {
+    public CommandFactory2019 (DriveBase driveBase, Arm1 arm1, Arm2 arm2, Arm3 arm3) {
         this.driveBase = driveBase;
         this.arm1 = arm1;
         this.arm2 = arm2;
+        this.arm3 = arm3;
     }
 
     public Command moveStraight(double time, double power, boolean stop) {
@@ -47,5 +50,13 @@ public class CommandFactory2019 extends CommandFactory {
     public Command setArm2Extender(boolean out)
     {
         return new SetArm2ExtenderCommand(out, arm2);
+    }
+
+    public Command Arm3Rotate(double speed, double time) {
+        return new Arm3RotateCommand(speed, arm3, time);
+    }
+
+    public Command Arm3Extender(boolean state) {
+        return new Arm3ExtenderCommand(state, arm3);
     }
 }
