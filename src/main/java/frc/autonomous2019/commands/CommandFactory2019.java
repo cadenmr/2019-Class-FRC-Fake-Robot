@@ -8,9 +8,11 @@ import frc.robot.DriveBase;
 public class CommandFactory2019 extends CommandFactory {
 
     DriveBase driveBase;
+    Arm2 arm2;
 
-    public CommandFactory2019 (DriveBase driveBase) {
+    public CommandFactory2019 (DriveBase driveBase, Arm2 arm2) {
         this.driveBase = driveBase;
+        this.arm2 = arm2;
     }
     public Command moveStraight(double time, double power, boolean stop) {
         return new MoveStraightCommand(power, time, driveBase, stop);
@@ -21,7 +23,7 @@ public class CommandFactory2019 extends CommandFactory {
         return new RotateArm2Command(power, time);
     }
 
-    public Command setArm2Extender(boolean out, Arm2 arm2)
+    public Command setArm2Extender(boolean out)
     {
         return new SetArm2ExtenderCommand(out, arm2);
     }
