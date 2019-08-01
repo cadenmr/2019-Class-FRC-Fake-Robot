@@ -21,7 +21,7 @@ public class CommandFactory2019 extends CommandFactory {
         return new Arm3RotateCommand(speed, arm3, time);
     }
 
-    public Command Arm3Extender(boolean state, double time) {
-        return new Arm3ExtenderCommand(state, arm3, time);
+    public Command Arm3Extender(boolean state) {
+        return new Arm3ExtenderCommand(state, arm3);
     }
 }
