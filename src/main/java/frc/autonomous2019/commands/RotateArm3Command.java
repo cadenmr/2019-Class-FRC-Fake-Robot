@@ -4,7 +4,7 @@ import frc.autonomous.Command;
 import frc.robot.Arm3;
 import edu.wpi.first.wpilibj.Timer;
 
-public class Arm3RotateCommand implements Command {
+public class RotateArm3Command implements Command {
 
     Timer timer;
 
@@ -17,7 +17,7 @@ public class Arm3RotateCommand implements Command {
 
     double speed;
 
-    public Arm3RotateCommand(double speed, Arm3 arm3, double time) {
+    public RotateArm3Command(double speed, Arm3 arm3, double time) {
         this.speed = speed;
 
         this.arm3 = arm3;

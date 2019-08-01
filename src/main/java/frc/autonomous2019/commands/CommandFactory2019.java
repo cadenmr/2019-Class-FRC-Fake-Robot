@@ -52,11 +52,11 @@ public class CommandFactory2019 extends CommandFactory {
         return new SetArm2ExtenderCommand(out, arm2);
     }
 
-    public Command Arm3Rotate(double speed, double time) {
-        return new Arm3RotateCommand(speed, arm3, time);
+    public Command rotateArm3(double speed, double time) {
+        return new RotateArm3Command(speed, arm3, time);
     }
 
-    public Command Arm3Extender(boolean state) {
-        return new Arm3ExtenderCommand(state, arm3);
+    public Command setArm3Extender(boolean state) {
+        return new setArm3ExtenderCommand(state, arm3);
     }
 }
