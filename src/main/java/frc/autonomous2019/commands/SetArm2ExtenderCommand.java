@@ -2,7 +2,6 @@ package frc.autonomous2019.commands;
 
 import frc.autonomous.Command;
 import frc.robot.Arm2;
-import edu.wpi.first.wpilibj.Timer;
 
 public class SetArm2ExtenderCommand implements Command {
 
