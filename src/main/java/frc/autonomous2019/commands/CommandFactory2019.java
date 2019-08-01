@@ -14,6 +14,7 @@ public class CommandFactory2019 extends CommandFactory {
         this.driveBase = driveBase;
         this.arm1 = arm1;
     }
+
     public Command moveStraight(double time, double power, boolean stop) {
         return new MoveStraightCommand(power, time, driveBase, stop);
     }
@@ -24,5 +25,13 @@ public class CommandFactory2019 extends CommandFactory {
 
     public Command setArm1Extender(boolean out) {
         return new SetArm1ExtenderCommand(out, arm1);
+    }
+    
+    public Command turnInPlace(double time, double power) {
+        return turnInPlace(time, power, true);
+    }
+
+    public Command turnInPlace(double time, double power, boolean stop) {
+        return new TurnInPlaceCommand(power, time, driveBase, stop);
     }
 }
