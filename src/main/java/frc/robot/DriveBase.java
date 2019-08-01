@@ -19,7 +19,7 @@ public class DriveBase {
     }
 
     public void drive(double leftPower, double rightPower) {
-        leftDrive.set(leftPower);
+        leftDrive.set(-leftPower);
         rightDrive.set(rightPower);
     }
 

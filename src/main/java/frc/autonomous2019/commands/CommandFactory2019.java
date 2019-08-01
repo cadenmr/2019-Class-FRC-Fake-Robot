@@ -14,4 +14,14 @@ public class CommandFactory2019 extends CommandFactory {
     public Command moveStraight(double time, double power, boolean stop) {
         return new MoveStraightCommand(power, time, driveBase, stop);
     }
+
+    public Command rotateArm2(double power, double time)
+    {
+        return new RotateArm2Command(power, time);
+    }
+
+    public Command setArm2Extender(boolean out, double time)
+    {
+        return new SetArm2ExtenderCommand(out, time);
+    }
 }
