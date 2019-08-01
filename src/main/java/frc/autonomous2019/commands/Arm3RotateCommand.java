@@ -38,11 +38,10 @@ public class Arm3RotateCommand implements Command {
         }
 
         if (complete) {
-            if (stop) {
                 arm3.setRotator(0);
+                return true;
             }
-            return true;
-        } else {
+         else {
             arm3.setRotator(speed);
             if (timer.get() >= time) {
                 complete = true;
