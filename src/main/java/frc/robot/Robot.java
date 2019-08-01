@@ -44,6 +44,11 @@ public class Robot extends TimedRobot {
   boolean arm2tog = false;
   boolean arm4ButtonPressed = false;
 
+  CommandFactory2019 commandFactory2019;
+
+  SendableChooser<Mission> missionChooser;
+  Mission DoNothing;
+  Mission DriveStraight;
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -64,6 +69,12 @@ public class Robot extends TimedRobot {
     arm2 = new Arm2(3, 1, 2);
     arm3 = new Arm3(4, 2, 0);
     arm4 = new Arm4(5, 3, 3);
+
+    commandFactory2019 = new CommandFactory2019(driveBase);
+    missionChooser = new SendableChooser<Mission>();
+    missionChooser.addDefault(DoNothing.getName(), DoNothing);
+    missionChooser.addObject(DriveStraight.getName(), DriveStraight);
+
   }
 
   /**
@@ -93,9 +104,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
+    /*m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    System.out.println("Auto selected: " + m_autoSelected);*/
+    Mission DoNothing = new Mission("Do Nothing");
+    Mission DriveStraight = new Mission("Drive Forward", commandFactory2019.DriveStraight(0.5, 1, true));
+    
+    activeMission = missionChooser.getSelected();
+    if(activeMission != null){
+      activeMission.reset();
+    }
   }
 
   /**
@@ -103,7 +121,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
+    /*switch (m_autoSelected) {
     case kCustomAuto:
       // Put custom auto code here
       break;
@@ -111,7 +129,8 @@ public class Robot extends TimedRobot {
     default:
       // Put default auto code here
       break;
-    }
+    }*/
+    activeMission.run();
   }
 
   /**
