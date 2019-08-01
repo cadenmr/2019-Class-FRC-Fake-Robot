@@ -15,6 +15,10 @@ public class CommandFactory2019 extends CommandFactory {
     public Command moveStraight(double time, double power, boolean stop) {
         return new MoveStraightCommand(power, time, driveBase, stop);
     }
+    
+    public Command turnInPlace(double time, double power) {
+        return turnInPlace(time, power, true);
+    }
 
     public Command turnInPlace(double time, double power, boolean stop) {
         return new TurnInPlaceCommand(power, time, driveBase, stop);
