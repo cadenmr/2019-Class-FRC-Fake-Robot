@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class Arm1 {
     private final VictorSP rotator;
     private final Solenoid extender;
-    private boolean extenderState;
-
     private final DigitalInput limitSwitch;
+
+    private boolean extenderState;
 
     public Arm1(int rotatorPort, int extenderPort, int limitSwitchPort) {
         rotator = new VictorSP(rotatorPort);
