@@ -30,29 +30,30 @@ public class Robot extends TimedRobot {
   private boolean arm3ExtenderState = false;
   private boolean arm3ButtonPressed = false;
 
-  DriveBase driveBase;
 
-  EnhancedJoystick leftJoystick;
-  EnhancedJoystick rightJoystick;
-  Gamepad manipulator;
+  private EnhancedJoystick leftJoystick;
+  private EnhancedJoystick rightJoystick;
+  private Gamepad manipulator;
 
-  Arm1 arm1;
-  Arm2 arm2;
-  Arm3 arm3;
-  Arm4 arm4;
+  private DriveBase driveBase;
 
-  boolean arm1ButtonPressed = false;
-  boolean arm2tog = false;
-  boolean arm4ButtonPressed = false;
+  private Arm1 arm1;
+  private Arm2 arm2;
+  private Arm3 arm3;
+  private Arm4 arm4;
 
-  CommandFactory2019 commandFactory;
+  private boolean arm1ButtonPressed = false;
+  private boolean arm2tog = false;
+  private boolean arm4ButtonPressed = false;
 
-  Mission activeMission;
-  SendableChooser<Mission> missionChooser;
+  private CommandFactory2019 commandFactory;
 
-  Mission doNothingMission;
-  Mission driveForwardMission;
-  Mission mission3;
+  private Mission doNothingMission;
+  private Mission driveForwardMission;
+  private Mission mission3;
+
+  private Mission activeMission;
+  private SendableChooser<Mission> missionChooser;
 
   /**
    * This function is run when the robot is first started up and should be used
