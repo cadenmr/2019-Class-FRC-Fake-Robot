@@ -33,7 +33,6 @@ public class Robot extends TimedRobot {
 
   private EnhancedJoystick leftJoystick;
   private EnhancedJoystick rightJoystick;
-  private Gamepad manipulator;
 
   private DriveBase driveBase;
 
@@ -69,7 +68,6 @@ public class Robot extends TimedRobot {
 
     leftJoystick = new EnhancedJoystick(0);
     rightJoystick = new EnhancedJoystick(1);
-    manipulator = new Gamepad(2);
 
     arm1 = new Arm1(2, 0, 1);
     arm2 = new Arm2(3, 1, 2);
