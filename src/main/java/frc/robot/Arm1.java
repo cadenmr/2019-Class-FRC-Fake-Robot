@@ -9,7 +9,7 @@ public class Arm1 {
     private final Solenoid extender;
     private boolean extenderState;
 
-    private DigitalInput limitSwitch;
+    private final DigitalInput limitSwitch;
 
     public Arm1(int rotatorPort, int extenderPort, int limitSwitchPort) {
         rotator = new VictorSP(rotatorPort);

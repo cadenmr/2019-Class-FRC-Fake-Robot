@@ -9,7 +9,7 @@ public class Arm2
     private final VictorSP rotator;
     private final Solenoid extender;
 
-    private DigitalInput limitSwitch;
+    private final DigitalInput limitSwitch;
 
     public Arm2(int rotatorPort, int extenderPort, int limitSwitchPort)
     {
