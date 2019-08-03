@@ -21,19 +21,19 @@ public class CommandFactory2019 extends CommandFactory {
         this.arm3 = arm3;
     }
 
-    public Command moveStraight(double time, double power, boolean stop) {
-        return new MoveStraightCommand(power, time, driveBase, stop);
+    public Command moveStraight(double power, double time, boolean stop) {
+        return new MoveStraightCommand(power, time, stop, driveBase);
     }
     
-    public Command turnInPlace(double time, double power) {
-        return turnInPlace(time, power, true);
+    public Command turnInPlace(double power, double time) {
+        return turnInPlace(power, time, true);
     }
 
-    public Command turnInPlace(double time, double power, boolean stop) {
-        return new TurnInPlaceCommand(power, time, driveBase, stop);
+    public Command turnInPlace(double power, double time, boolean stop) {
+        return new TurnInPlaceCommand(power, time, stop, driveBase);
     }
     
-    public Command rotateArm1Command(double time, double power) {
+    public Command rotateArm1Command(double power, double time) {
         return new RotateArm1Command(power, time, arm1);
     }
 
@@ -52,11 +52,11 @@ public class CommandFactory2019 extends CommandFactory {
         return new SetArm2ExtenderCommand(out, arm2);
     }
 
-    public Command rotateArm3(double speed, double time) {
-        return new RotateArm3Command(speed, arm3, time);
+    public Command rotateArm3(double power, double time) {
+        return new RotateArm3Command(power, arm3, time);
     }
 
-    public Command setArm3Extender(boolean state) {
-        return new setArm3ExtenderCommand(state, arm3);
+    public Command setArm3Extender(boolean out) {
+        return new setArm3ExtenderCommand(out, arm3);
     }
 }
