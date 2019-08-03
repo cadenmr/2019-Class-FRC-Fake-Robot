@@ -70,10 +70,12 @@ public class Robot extends TimedRobot {
     mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.1, true), commandFactory.delay(1),
         commandFactory.moveStraight(2, 0.1, true));
 
-    missionChooser = new SendableChooser<Mission>();
+    missionChooser = new SendableChooser<>();
     missionChooser.setDefaultOption(doNothingMission.getName(), doNothingMission);
     missionChooser.addOption(driveForwardMission.getName(), driveForwardMission);
     missionChooser.addOption(mission3.getName(), mission3);
+
+    SmartDashboard.putData(missionChooser);
   }
 
   /**
