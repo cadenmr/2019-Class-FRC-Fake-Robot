@@ -87,19 +87,6 @@ public class Robot extends TimedRobot {
   }
 
   /**
-   * This function is called every robot packet, no matter the mode. Use this for
-   * items like diagnostics that you want ran during disabled, autonomous,
-   * teleoperated and test.
-   *
-   * <p>
-   * This runs after the mode specific periodic functions, but before LiveWindow
-   * and SmartDashboard integrated updating.
-   */
-  @Override
-  public void robotPeriodic() {
-  }
-
-  /**
    * This autonomous (along with the chooser code above) shows how to select
    * between different autonomous modes using the dashboard. The sendable chooser
    * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
@@ -143,7 +130,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
     driveBase.drive(leftJoystick.getY(), rightJoystick.getY());
 
     if (leftJoystick.getTrigger() && !arm1.getLimitSwitch()) {
@@ -201,12 +187,5 @@ public class Robot extends TimedRobot {
     }
     arm1ButtonPressed = rightJoystick.getTrigger();
     arm4.setExtender(rightJoystick.getTrigger());
-  }
-
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
   }
 }
