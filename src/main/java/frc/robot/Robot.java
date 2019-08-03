@@ -26,22 +26,20 @@ public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-
-  private boolean arm3ExtenderState = false;
-  private boolean arm3ButtonPressed = false;
-
+  
   private EnhancedJoystick leftJoystick;
   private EnhancedJoystick rightJoystick;
-
+  
   private DriveBase driveBase;
-
+  
   private Arm1 arm1;
   private Arm2 arm2;
   private Arm3 arm3;
   private Arm4 arm4;
-
+  
   private boolean arm1ButtonPressed = false;
-  private boolean arm2tog = false;
+  private boolean arm2ButtonPressed = false;
+  private boolean arm3ButtonPressed = false;
   private boolean arm4ButtonPressed = false;
 
   private CommandFactory2019 commandFactory;
@@ -132,6 +130,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     driveBase.drive(leftJoystick.getY(), rightJoystick.getY());
 
+    // Arm 1
     if (leftJoystick.getTrigger() && !arm1.getLimitSwitch()) {
       arm1.setRotator(1);
     } else {
@@ -142,50 +141,41 @@ public class Robot extends TimedRobot {
       arm1.changeExtenderState();
     }
     arm1ButtonPressed = rightJoystick.getTrigger();
-    arm1.setExtender(rightJoystick.getTrigger());
 
-    if (rightJoystick.getRawButton(3) && !arm3ButtonPressed) {
-      arm3ExtenderState = !arm3ExtenderState;
-    }
-
-    arm3ButtonPressed = rightJoystick.getRawButton(3);
-
-    arm3.setExtender(arm3ExtenderState);
-
-    if (leftJoystick.getRawButton(3)) {
-      if (arm3.getLimitSwitch()) {
-        arm3.setRotator(0);
-      } else {
-        arm3.setRotator(1);
-      }
-    } else {
-      arm3.setRotator(0);
-    }
-
+    // Arm 2
     if (leftJoystick.getRawButton(2) && !arm2.getlimitSwitch()) {
       arm2.setRotator(1);
     } else {
       arm2.setRotator(0);
     }
-
-    arm2.setExtender(leftJoystick.getRawButton(2));
-
-    if (leftJoystick.getRawButton(2) && leftJoystick.getTrigger() != arm2tog) {
-      arm2tog = !arm2tog;
+        
+    if (rightJoystick.getRawButton(2) && !arm2ButtonPressed) {
+      arm2.changeExtenderState();
+    }
+    arm2ButtonPressed = rightJoystick.getRawButton(2);
+    
+    // Arm 3
+    if (leftJoystick.getRawButton(3) && !arm3.getLimitSwitch()) {
+      arm3.setRotator(1);
+    } else {
+      arm3.setRotator(0);
     }
 
-    arm2.setExtender(arm2tog);
-
+    if (rightJoystick.getRawButton(3) && !arm3ButtonPressed) {
+      arm3.changeExtenderState();
+    }
+    arm3ButtonPressed = rightJoystick.getRawButton(3);
+    
+    // Arm 4
     if (leftJoystick.getTrigger() && !arm4.getLimitSwitch()) {
       arm4.setRotator(1);
     } else {
-      arm1.setRotator(0);
+      arm4.setRotator(0);
     }
 
     if (rightJoystick.getTrigger() && !arm4ButtonPressed) {
       arm4.changeExtenderState();
     }
-    arm1ButtonPressed = rightJoystick.getTrigger();
-    arm4.setExtender(rightJoystick.getTrigger());
+    arm4ButtonPressed = rightJoystick.getTrigger();
   }
 }
