@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.autonomous.Mission;
 import frc.autonomous2019.commands.CommandFactory2019;
 import frc.misc2019.EnhancedJoystick;
-import frc.misc2019.Gamepad;
 
 /**
  * The VM is configured to automatically run this class, and to call the
