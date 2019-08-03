@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class DriveBase {
+
     private final VictorSP leftDrive;
     private final VictorSP rightDrive;
 
@@ -14,7 +15,6 @@ public class DriveBase {
         rightDrive = new VictorSP(rightDrivePort);
 
         encoder = new Encoder(encoderPortA, encoderPortB);
-
         encoder.setDistancePerPulse((4 * Math.PI) / 1024);
     }
 
