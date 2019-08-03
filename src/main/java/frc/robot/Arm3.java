@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class Arm3 {
+
     private final VictorSP rotator;
     private final Solenoid extender;
     private final DigitalInput limitSwitch;

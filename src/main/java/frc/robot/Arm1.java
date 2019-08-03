@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Arm1 {
+
     private final VictorSP rotator;
     private final Solenoid extender;
     private final DigitalInput limitSwitch;
