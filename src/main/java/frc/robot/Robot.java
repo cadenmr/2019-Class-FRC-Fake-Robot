@@ -90,11 +90,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    doNothingMission = new Mission("Do Nothing");
-    driveForwardMission = new Mission("Drive Forward", commandFactory.moveStraight(2, 0.1, true));
-    mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.1, true), commandFactory.delay(1),
-        commandFactory.moveStraight(2, 0.1, true));
-
     activeMission = missionChooser.getSelected();
 
     if (activeMission != null) {
