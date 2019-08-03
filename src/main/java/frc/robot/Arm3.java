@@ -11,17 +11,17 @@ public class Arm3 {
 
     private boolean extenderState;
 
-    public Arm3(int rotatorChannel, int extenderChannel, int limitSwitchChannel) {
-        rotator = new VictorSP(rotatorChannel);
-        extender = new Solenoid(extenderChannel);
-        limitSwitch = new DigitalInput(limitSwitchChannel);
+    public Arm3(int rotatorPort, int extenderPort, int limitSwitchPort) {
+        rotator = new VictorSP(rotatorPort);
+        extender = new Solenoid(extenderPort);
+        limitSwitch = new DigitalInput(limitSwitchPort);
 
         extenderState = false;
     }
 
-    public void setExtender(boolean state) {
-        extender.set(state);
-        extenderState = state;
+    public void setExtender(boolean out) {
+        extender.set(out);
+        extenderState = out;
     }
 
     public void changeExtenderState() {
