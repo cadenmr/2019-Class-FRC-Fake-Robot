@@ -22,20 +22,17 @@ import frc.misc2019.EnhancedJoystick;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  
+
   private EnhancedJoystick leftJoystick;
   private EnhancedJoystick rightJoystick;
-  
+
   private DriveBase driveBase;
-  
+
   private Arm1 arm1;
   private Arm2 arm2;
   private Arm3 arm3;
   private Arm4 arm4;
-  
+
   private boolean arm1ButtonPressed = false;
   private boolean arm2ButtonPressed = false;
   private boolean arm3ButtonPressed = false;
@@ -56,10 +53,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
-
     driveBase = new DriveBase(0, 1, 4, 5);
 
     leftJoystick = new EnhancedJoystick(0);
@@ -147,12 +140,12 @@ public class Robot extends TimedRobot {
     } else {
       arm2.setRotator(0);
     }
-        
+
     if (rightJoystick.getRawButton(2) && !arm2ButtonPressed) {
       arm2.changeExtenderState();
     }
     arm2ButtonPressed = rightJoystick.getRawButton(2);
-    
+
     // Arm 3
     if (leftJoystick.getRawButton(3) && !arm3.getLimitSwitch()) {
       arm3.setRotator(1);
@@ -164,7 +157,7 @@ public class Robot extends TimedRobot {
       arm3.changeExtenderState();
     }
     arm3ButtonPressed = rightJoystick.getRawButton(3);
-    
+
     // Arm 4
     if (leftJoystick.getTrigger() && !arm4.getLimitSwitch()) {
       arm4.setRotator(1);
