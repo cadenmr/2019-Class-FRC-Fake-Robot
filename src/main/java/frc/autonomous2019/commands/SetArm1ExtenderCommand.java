@@ -22,6 +22,6 @@ public class SetArm1ExtenderCommand implements Command {
     }
 
     @Override
-    public void reset() {}
-
+    public void reset() {
+    }
 }

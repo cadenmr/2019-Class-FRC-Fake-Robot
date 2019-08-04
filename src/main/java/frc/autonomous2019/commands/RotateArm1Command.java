@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class RotateArm1Command implements Command {
 
-    Timer timer;
-
     double power;
     double time;
 
@@ -15,6 +13,8 @@ public class RotateArm1Command implements Command {
     boolean complete;
 
     Arm1 arm1;
+
+    Timer timer;
 
     public RotateArm1Command(double power, double time, Arm1 arm1) {
         this.power = power;
@@ -52,5 +52,4 @@ public class RotateArm1Command implements Command {
         needsToStart = true;
         complete = false;
     }
-
 }
