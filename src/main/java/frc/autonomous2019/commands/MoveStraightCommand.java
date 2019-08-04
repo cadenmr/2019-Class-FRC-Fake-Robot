@@ -6,18 +6,18 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class MoveStraightCommand implements Command {
 
-    Timer timer;
-
     double power;
     double time;
-
+    boolean stop;
+    
     boolean needsToStart;
     boolean complete;
-
+    
     DriveBase driveBase;
-    boolean stop;
 
-    public MoveStraightCommand(double power, double time, DriveBase driveBase, boolean stop) {
+    Timer timer;
+
+    public MoveStraightCommand(double power, double time, boolean stop, DriveBase driveBase) {
         this.power = power;
         this.time = time;
         this.stop = stop;
@@ -56,5 +56,4 @@ public class MoveStraightCommand implements Command {
         needsToStart = true;
         complete = false;
     }
-
 }

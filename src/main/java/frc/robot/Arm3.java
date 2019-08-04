@@ -5,19 +5,28 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class Arm3 {
+
     private final VictorSP rotator;
     private final Solenoid extender;
-
     private final DigitalInput limitSwitch;
 
-    public Arm3(int rotatorChannel, int extenderChannel, int limitSwitchChannel) {
-        rotator = new VictorSP(rotatorChannel);
-        extender = new Solenoid(extenderChannel);
-        limitSwitch = new DigitalInput(limitSwitchChannel);
+    private boolean extenderState;
+
+    public Arm3(int rotatorPort, int extenderPort, int limitSwitchPort) {
+        rotator = new VictorSP(rotatorPort);
+        extender = new Solenoid(extenderPort);
+        limitSwitch = new DigitalInput(limitSwitchPort);
+
+        extenderState = false;
     }
 
-    public void setExtender(boolean state) {
-        extender.set(state);
+    public void setExtender(boolean out) {
+        extender.set(out);
+        extenderState = out;
+    }
+
+    public void changeExtenderState() {
+        setExtender(!extenderState);
     }
 
     public void setRotator(double speed) {
@@ -25,6 +34,6 @@ public class Arm3 {
     }
 
     public boolean getLimitSwitch() {
-        return limitSwitch.get();
+        return !limitSwitch.get();
     }
 }

@@ -4,13 +4,12 @@ import frc.autonomous.Command;
 import frc.robot.Arm3;
 
 public class setArm3ExtenderCommand implements Command {
-    boolean state;
 
+    boolean out;
     Arm3 arm3;
 
-    public setArm3ExtenderCommand(boolean state, Arm3 arm3) {
-        this.state = state;
-
+    public setArm3ExtenderCommand(boolean out, Arm3 arm3) {
+        this.out = out;
         this.arm3 = arm3;
 
         reset();
@@ -18,12 +17,11 @@ public class setArm3ExtenderCommand implements Command {
 
     @Override
     public boolean run() {
-        arm3.setExtender(state);
+        arm3.setExtender(out);
         return true;
     }
 
     @Override
     public void reset() {
     }
-
 }

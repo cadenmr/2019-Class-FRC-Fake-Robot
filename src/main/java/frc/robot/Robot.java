@@ -11,12 +11,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.autonomous.Mission;
-import frc.autonomous.MissionSendable;
-import frc.autonomous.commands.CommandFactory;
-import frc.autonomous.commands.DelayCommand;
 import frc.autonomous2019.commands.CommandFactory2019;
 import frc.misc2019.EnhancedJoystick;
-import frc.misc2019.Gamepad;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,36 +22,30 @@ import frc.misc2019.Gamepad;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  private boolean arm3ExtenderState = false;
+  private EnhancedJoystick leftJoystick;
+  private EnhancedJoystick rightJoystick;
+
+  private DriveBase driveBase;
+
+  private Arm1 arm1;
+  private Arm2 arm2;
+  private Arm3 arm3;
+  private Arm4 arm4;
+
+  private boolean arm1ButtonPressed = false;
+  private boolean arm2ButtonPressed = false;
   private boolean arm3ButtonPressed = false;
+  private boolean arm4ButtonPressed = false;
 
-  DriveBase driveBase;
+  private CommandFactory2019 commandFactory;
 
-  EnhancedJoystick leftJoystick;
-  EnhancedJoystick rightJoystick;
-  Gamepad manipulator;
+  private Mission doNothingMission;
+  private Mission driveForwardMission;
+  private Mission mission3;
 
-  Arm1 arm1;
-  Arm2 arm2;
-  Arm3 arm3;
-  Arm4 arm4;
-
-  boolean arm1ButtonPressed = false;
-  boolean arm2tog = false;
-  boolean arm4ButtonPressed = false;
-
-  CommandFactory2019 commandFactory;
-
-  Mission activeMission;
-  SendableChooser<Mission> missionChooser;
-
-  Mission doNothingMission;
-  Mission driveForwardMission;
-  Mission mission3;
+  private Mission activeMission;
+  private SendableChooser<Mission> missionChooser;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -63,15 +53,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
-
     driveBase = new DriveBase(0, 1, 4, 5);
 
     leftJoystick = new EnhancedJoystick(0);
     rightJoystick = new EnhancedJoystick(1);
-    manipulator = new Gamepad(2);
 
     arm1 = new Arm1(2, 0, 1);
     arm2 = new Arm2(3, 1, 2);
@@ -79,28 +64,18 @@ public class Robot extends TimedRobot {
     arm4 = new Arm4(5, 3, 3);
 
     commandFactory = new CommandFactory2019(driveBase, arm1, arm2, arm3);
-    
+
     doNothingMission = new Mission("Do Nothing");
     driveForwardMission = new Mission("Drive Forward", commandFactory.moveStraight(2, 0.1, true));
-    mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.1, true), commandFactory.delay(1), commandFactory.moveStraight(2, 0.1, true));
+    mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.1, true), commandFactory.delay(1),
+        commandFactory.moveStraight(2, 0.1, true));
 
-    missionChooser = new SendableChooser<Mission>();
+    missionChooser = new SendableChooser<>();
     missionChooser.setDefaultOption(doNothingMission.getName(), doNothingMission);
     missionChooser.addOption(driveForwardMission.getName(), driveForwardMission);
     missionChooser.addOption(mission3.getName(), mission3);
-  }
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use this for
-   * items like diagnostics that you want ran during disabled, autonomous,
-   * teleoperated and test.
-   *
-   * <p>
-   * This runs after the mode specific periodic functions, but before LiveWindow
-   * and SmartDashboard integrated updating.
-   */
-  @Override
-  public void robotPeriodic() {
+    SmartDashboard.putData(missionChooser);
   }
 
   /**
@@ -117,10 +92,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    doNothingMission = new Mission("Do Nothing");
-    driveForwardMission = new Mission("Drive Forward", commandFactory.moveStraight(2, 0.1, true));
-    mission3 = new Mission("Mission 3", commandFactory.moveStraight(2, 0.1, true), commandFactory.delay(1), commandFactory.moveStraight(2, 0.1, true));
-
     activeMission = missionChooser.getSelected();
 
     if (activeMission != null) {
@@ -134,10 +105,10 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     if (activeMission != null) {
-        if (activeMission.run()) {
-            System.out.println("Mission '" + activeMission.getName() + "' Complete");
-            activeMission = null;
-        }
+      if (activeMission.run()) {
+        System.out.println("Mission '" + activeMission.getName() + "' Complete");
+        activeMission = null;
+      }
     }
   }
 
@@ -146,9 +117,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
     driveBase.drive(leftJoystick.getY(), rightJoystick.getY());
 
+    // Arm 1
     if (leftJoystick.getTrigger() && !arm1.getLimitSwitch()) {
       arm1.setRotator(1);
     } else {
@@ -159,57 +130,41 @@ public class Robot extends TimedRobot {
       arm1.changeExtenderState();
     }
     arm1ButtonPressed = rightJoystick.getTrigger();
-    arm1.setExtender(rightJoystick.getTrigger());
 
-    if (rightJoystick.getRawButton(3) && !arm3ButtonPressed) {
-      arm3ExtenderState = !arm3ExtenderState;
-    }
-
-    arm3ButtonPressed = rightJoystick.getRawButton(3);
-
-    arm3.setExtender(arm3ExtenderState);
-
-    if (leftJoystick.getRawButton(3)) {
-      if (arm3.getLimitSwitch()) {
-        arm3.setRotator(0);
-      } else {
-        arm3.setRotator(1);
-      }
-    } else {
-      arm3.setRotator(0);
-    }
-
+    // Arm 2
     if (leftJoystick.getRawButton(2) && !arm2.getlimitSwitch()) {
       arm2.setRotator(1);
     } else {
       arm2.setRotator(0);
     }
 
-    arm2.setExtender(leftJoystick.getRawButton(2));
+    if (rightJoystick.getRawButton(2) && !arm2ButtonPressed) {
+      arm2.changeExtenderState();
+    }
+    arm2ButtonPressed = rightJoystick.getRawButton(2);
 
-    if (leftJoystick.getRawButton(2) && leftJoystick.getTrigger() != arm2tog) {
-      arm2tog = !arm2tog;
+    // Arm 3
+    if (leftJoystick.getRawButton(3) && !arm3.getLimitSwitch()) {
+      arm3.setRotator(1);
+    } else {
+      arm3.setRotator(0);
     }
 
-    arm2.setExtender(arm2tog);
+    if (rightJoystick.getRawButton(3) && !arm3ButtonPressed) {
+      arm3.changeExtenderState();
+    }
+    arm3ButtonPressed = rightJoystick.getRawButton(3);
 
+    // Arm 4
     if (leftJoystick.getTrigger() && !arm4.getLimitSwitch()) {
       arm4.setRotator(1);
     } else {
-      arm1.setRotator(0);
+      arm4.setRotator(0);
     }
 
     if (rightJoystick.getTrigger() && !arm4ButtonPressed) {
       arm4.changeExtenderState();
     }
-    arm1ButtonPressed = rightJoystick.getTrigger();
-    arm4.setExtender(rightJoystick.getTrigger());
-  }
-
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
+    arm4ButtonPressed = rightJoystick.getTrigger();
   }
 }

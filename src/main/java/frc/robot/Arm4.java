@@ -7,13 +7,15 @@ import edu.wpi.first.wpilibj.DigitalInput;;
 public class Arm4 {
     private final VictorSP rotator;
     private final Solenoid extender;
-    private boolean extenderState;
     private final DigitalInput limitSwitch;
+
+    private boolean extenderState;
 
     public Arm4(int rotatorPort, int extenderPort, int limitSwitchPort) {
         rotator = new VictorSP(rotatorPort);
         extender = new Solenoid(extenderPort);
         limitSwitch = new DigitalInput(limitSwitchPort);
+
         extenderState = false;
     }
 
@@ -31,6 +33,6 @@ public class Arm4 {
     }
 
     public boolean getLimitSwitch() {
-        return limitSwitch.get();
+        return !limitSwitch.get();
     }
 }

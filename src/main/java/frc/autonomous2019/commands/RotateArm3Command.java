@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class RotateArm3Command implements Command {
 
-    Timer timer;
-
+    double power;
     double time;
 
     boolean needsToStart;
@@ -15,10 +14,11 @@ public class RotateArm3Command implements Command {
 
     Arm3 arm3;
 
-    double speed;
+    Timer timer;
 
-    public RotateArm3Command(double speed, Arm3 arm3, double time) {
-        this.speed = speed;
+    public RotateArm3Command(double power, Arm3 arm3, double time) {
+        this.power = power;
+        this.time = time;
 
         this.arm3 = arm3;
 
@@ -36,11 +36,10 @@ public class RotateArm3Command implements Command {
         }
 
         if (complete) {
-                arm3.setRotator(0);
-                return true;
-            }
-         else {
-            arm3.setRotator(speed);
+            arm3.setRotator(0);
+            return true;
+        } else {
+            arm3.setRotator(power);
             if (timer.get() >= time) {
                 complete = true;
             }
@@ -53,5 +52,4 @@ public class RotateArm3Command implements Command {
         needsToStart = true;
         complete = false;
     }
-
 }
