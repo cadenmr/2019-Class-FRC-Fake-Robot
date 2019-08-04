@@ -34,6 +34,6 @@ public class Arm2 {
     }
 
     public boolean getlimitSwitch() {
-        return limitSwitch.get();
+        return !limitSwitch.get();
     }
 }
